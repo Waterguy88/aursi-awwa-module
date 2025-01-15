@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AURSI AWWA Resource Typing Module</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .resource-card {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+        }
+        .resource-card h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AWWA Resource Typing Module</h1>
+        <form id="resourceForm" action="https://script.google.com/macros/s/AKfycbyjQ-kGfsDmhqOsNQ6DGBSxxYrxXz3by9yBI4wEGuz5yPv9U3P4gTbw_Zy08ekiIcQc/exec" method="POST">
+            <div class="form-group">
+                <label for="resourceType">Resource Type</label>
+                <select id="resourceType" name="resourceType">
+                    <option value="">-- Select Resource Type --</option>
+                    <option value="personnel">Personnel</option>
+                    <option value="equipment">Equipment</option>
+                    <option value="vehicles">Vehicles</option>
+                    <option value="supplies">Supplies</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="resourceName">Resource Name</label>
+                <input type="text" id="resourceName" name="resourceName" placeholder="e.g., Backhoe Loader">
+            </div>
+
+            <div class="form-group">
+                <label for="capability">Capability Description</label>
+                <textarea id="capability" name="capability" rows="4" placeholder="Describe the capabilities of this resource"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="e.g., San Diego, CA">
+            </div>
+
+            <div class="form-group">
+                <label for="status">Resource Status</label>
+                <select id="status" name="status">
+                    <option value="">-- Select Status --</option>
+                    <option value="available">Available</option>
+                    <option value="in_use">In Use</option>
+                    <option value="under_maintenance">Under Maintenance</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Point of Contact</label>
+                <input type="text" id="contact" name="contact" placeholder="Name and contact details">
+            </div>
+
+            <div style="text-align: center;">
+                <button type="submit" class="button">Save Resource</button>
+            </div>
+        </form>
+
+        <h2>Saved Resources</h2>
+        <div id="savedResources">
+            <!-- Resource cards will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('resourceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const resourceType = document.getElementById('resourceType').value;
+            const resourceName = document.getElementById('resourceName').value;
+            const capability = document.getElementById('capability').value;
+            const location = document.getElementById('location').value;
+            const status = document.getElementById('status').value;
+            const contact = document.getElementById('contact').value;
+
+            // Create a resource card
+            const card = document.createElement('div');
+            card.className = 'resource-card';
+            card.innerHTML = `
+                <h3>${resourceName} (${resourceType})</h3>
+                <p><strong>Capability:</strong> ${capability}</p>
+                <p><strong>Location:</strong> ${location}</p>
+                <p><strong>Status:</strong> ${status}</p>
+                <p><strong>Contact:</strong> ${contact}</p>
+            `;
+
+            // Add the card to the saved resources section
+            document.getElementById('savedResources').appendChild(card);
+
+            // Reset form
+            document.getElementById('resourceForm').reset();
+        });
+    </script>
+</body>
+</html>
